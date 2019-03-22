@@ -45,3 +45,18 @@ UPDATE actor SET first_name = 'GROUCHO' WHERE first_name = "HARPO" AND last_name
 SELECT actor_id, first_name, last_name FROM actor WHERE last_name = "WILLIAMS";
 
 -- 5a
+SHOW CREATE TABLE address;
+
+-- 6a
+-- DESCRIBE staff;
+-- SELECT address_id, first_name, last_name FROM staff;
+-- SELECT address_id, address FROM address where address_id IN (3,4);
+SELECT s.address_id, s.first_name, s.last_name, a.address FROM staff AS s JOIN address AS a WHERE a.address_id IN (s.address_id);
+
+-- 6b
+DESCRIBE staff;
+DESCRIBE payment;
+-- SELECT SUM(p.amount), p.staff_id, p.payment_date FROM payment AS p WHERE LOCATE("2005-08",p.payment_date) GROUP BY staff_id ;
+SELECT p.staff_id, s.first_name, s.last_name, SUM(p.amount) AS "Total Sales August 2005" FROM payment AS p  JOIN staff as s WHERE s.staff_id IN (select p.staff_id from payment where LOCATE("2005-08",p.payment_date)) GROUP BY staff_id; 
+
+-- 6c
