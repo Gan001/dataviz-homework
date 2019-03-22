@@ -64,4 +64,16 @@ SELECT p.staff_id, s.first_name, s.last_name, SUM(p.amount) AS "Total Sales Augu
 -- DESCRIBE film;
 -- SELECT film_id, title FROM film;
 -- SELECT film_id, count(actor_id) FROM film_actor GROUP BY film_id;
-SELECT fa.film_id, f.title, count(fa.actor_id) AS "Number of Actors" FROM film_actor AS fa INNER JOIN film as f ON fa.film_id = f.film_id GROUP BY film_id;
+SELECT fa.film_id, f.title, COUNT(fa.actor_id) AS "Number of Actors" FROM film_actor AS fa INNER JOIN film as f ON fa.film_id = f.film_id GROUP BY film_id;
+
+-- 6d
+-- DESCRIBE inventory;
+-- SELECT film_id, title FROM film WHERE title = 'Hunchback Impossible';
+SELECT i.film_id, f.title, COUNT(i.inventory_id) AS "Inventory" FROM inventory AS i INNER JOIN film AS f ON i.film_id = f.film_id WHERE f.title = 'Hunchback Impossible'; -- GROUP BY film_id;
+
+-- 6e
+-- DESCRIBE customer;
+-- DESCRIBE payment;
+-- SELECT customer_id, amount FROM payment;
+-- SELECT customer_id, first_name, last_name FROM customer ORDER BY last_name;
+SELECT c.first_name, c.last_name, SUM(p.amount) AS "Total Amount Paid" FROM payment AS p INNER JOIN customer AS C ON p.customer_id = c.customer_id  GROUP BY p.customer_id ORDER BY c.last_name;
