@@ -88,4 +88,25 @@ WHERE language_id IN
  WHERE name = "English" AND (title LIKE "K%" OR title LIKE "Q%")
  );
  
+ -- 7b
+ SELECT first_name, last_name
+ FROM actor
+ WHERE actor_id IN 
+ (
+  SELECT actor_id 
+  FROM film_actor
+  WHERE film_id IN
+  (
+   SELECT film_id
+   FROM film
+   WHERE title = "Alone Trip"
+  )
+ );
+ -- Using joins
+ -- SELECT a.first_name, a.last_name, f.title 
+ -- FROM actor AS a 
+ -- INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id 
+ -- INNER JOIN film AS f ON fa.film_id = f.film_id 
+ -- WHERE f.title = "Alone Trip";
+ 
  
