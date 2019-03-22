@@ -60,3 +60,8 @@ DESCRIBE payment;
 SELECT p.staff_id, s.first_name, s.last_name, SUM(p.amount) AS "Total Sales August 2005" FROM payment AS p  JOIN staff as s WHERE s.staff_id IN (select p.staff_id from payment where LOCATE("2005-08",p.payment_date)) GROUP BY staff_id; 
 
 -- 6c
+-- DESCRIBE film_actor;
+-- DESCRIBE film;
+-- SELECT film_id, title FROM film;
+-- SELECT film_id, count(actor_id) FROM film_actor GROUP BY film_id;
+SELECT fa.film_id, f.title, count(fa.actor_id) AS "Number of Actors" FROM film_actor AS fa INNER JOIN film as f ON fa.film_id = f.film_id GROUP BY film_id;
