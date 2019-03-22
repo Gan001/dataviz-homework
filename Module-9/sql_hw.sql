@@ -77,3 +77,15 @@ SELECT i.film_id, f.title, COUNT(i.inventory_id) AS "Inventory" FROM inventory A
 -- SELECT customer_id, amount FROM payment;
 -- SELECT customer_id, first_name, last_name FROM customer ORDER BY last_name;
 SELECT c.first_name, c.last_name, SUM(p.amount) AS "Total Amount Paid" FROM payment AS p INNER JOIN customer AS C ON p.customer_id = c.customer_id  GROUP BY p.customer_id ORDER BY c.last_name;
+
+-- 7a
+SELECT language_id, title
+FROM film
+WHERE language_id IN 
+(
+ SELECT language_id
+ FROM language 
+ WHERE name = "English" AND (title LIKE "K%" OR title LIKE "Q%")
+ );
+ 
+ 
