@@ -173,3 +173,20 @@ JOIN category AS c ON fc.category_id = c.category_id
 GROUP BY c.name
 ORDER BY SUM(p.amount) DESC 
 LIMIT 5;
+
+-- 8a
+CREATE VIEW top_five_genres AS
+SELECT c.name, SUM(p.amount) AS "Gross Revenue"
+FROM payment AS p
+JOIN rental AS r ON p.rental_id = r.rental_id
+JOIN inventory AS i ON r.inventory_id = i.inventory_id
+JOIN film_category AS fc ON i.film_id = fc.film_id
+JOIN category AS c ON fc.category_id = c.category_id
+GROUP BY c.name
+ORDER BY SUM(p.amount) DESC 
+LIMIT 5;
+
+-- 8b
+SELECT * FROM top_five_genres;
+
+-- 8c
