@@ -190,3 +190,4 @@ LIMIT 5;
 SELECT * FROM top_five_genres;
 
 -- 8c
+DROP VIEW top_five_genres;
