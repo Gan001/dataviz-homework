@@ -155,3 +155,10 @@ JOIN rental AS r ON p.rental_id = r.rental_id
 JOIN inventory AS i ON r.inventory_id = i.inventory_id
 JOIN store AS s ON i.store_id = s.store_id
 GROUP BY s.store_id;
+
+-- 7g
+SELECT s.store_id, c.city, ct.country
+FROM store AS s
+JOIN address AS a ON s.address_id = a.address_id
+JOIN city AS c ON a.city_id = c.city_id
+JOIN country AS ct ON c.country_id = ct.country_id
