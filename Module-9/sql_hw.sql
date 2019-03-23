@@ -161,4 +161,15 @@ SELECT s.store_id, c.city, ct.country
 FROM store AS s
 JOIN address AS a ON s.address_id = a.address_id
 JOIN city AS c ON a.city_id = c.city_id
-JOIN country AS ct ON c.country_id = ct.country_id
+JOIN country AS ct ON c.country_id = ct.country_id;
+
+-- 7h
+SELECT c.name, SUM(p.amount) AS "Gross Revenue"
+FROM payment AS p
+JOIN rental AS r ON p.rental_id = r.rental_id
+JOIN inventory AS i ON r.inventory_id = i.inventory_id
+JOIN film_category AS fc ON i.film_id = fc.film_id
+JOIN category AS c ON fc.category_id = c.category_id
+GROUP BY c.name
+ORDER BY SUM(p.amount) DESC 
+LIMIT 5;
