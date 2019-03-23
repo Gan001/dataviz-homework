@@ -81,8 +81,8 @@ JOIN address AS a
 WHERE a.address_id IN (s.address_id);
 
 -- 6b
-DESCRIBE staff;
-DESCRIBE payment;
+-- DESCRIBE staff;
+-- DESCRIBE payment;
 -- SELECT SUM(p.amount), p.staff_id, p.payment_date FROM payment AS p WHERE LOCATE("2005-08",p.payment_date) GROUP BY staff_id ;
 SELECT p.staff_id, s.first_name, s.last_name, SUM(p.amount) AS "Total Sales August 2005" 
 FROM payment AS p  
@@ -196,7 +196,7 @@ FROM payment AS p
 JOIN staff AS st ON p.staff_id = st.staff_id
 JOIN store AS s ON st.store_id = s.store_id
 GROUP BY s.store_id;
-/*-- Incorrect
+/*-- Incorrect adds too much (unsold) from inventory
 SELECT s.store_id, SUM(p.amount) AS "Total Amount"
 FROM payment AS p
 JOIN rental AS r ON p.rental_id = r.rental_id
