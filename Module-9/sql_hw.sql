@@ -109,6 +109,7 @@ WHERE language_id IN
  INNER JOIN film AS f ON fa.film_id = f.film_id 
  WHERE f.title = "Alone Trip";
  */
+ 
  -- 7c
  SELECT c.first_name, c.last_name, c.email, co.country 
  FROM customer AS c
@@ -138,6 +139,7 @@ JOIN film_category AS fc ON f.film_id = fc.film_id
 JOIN category AS c ON fc.category_id = c.category_id
 WHERE c.name = "Family";
 */ 
+
 -- 7e
 SELECT f.title, COUNT(r.inventory_id) AS "Number of Rentals" 
 FROM rental AS r 
@@ -145,3 +147,11 @@ JOIN inventory AS i ON r.inventory_id = i.inventory_id
 JOIN film AS f ON i.film_id = f.film_id 
 GROUP BY title 
 ORDER BY COUNT(r.inventory_id) DESC;
+
+-- 7f
+SELECT s.store_id, SUM(p.amount) AS "Total Amount"
+FROM payment AS p
+JOIN rental AS r ON p.rental_id = r.rental_id
+JOIN inventory AS i ON r.inventory_id = i.inventory_id
+JOIN store AS s ON i.store_id = s.store_id
+GROUP BY s.store_id;
