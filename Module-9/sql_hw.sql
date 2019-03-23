@@ -102,13 +102,13 @@ WHERE language_id IN
    WHERE title = "Alone Trip"
   )
  );
- -- Using joins
- -- SELECT a.first_name, a.last_name, f.title 
- -- FROM actor AS a 
- -- INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id 
- -- INNER JOIN film AS f ON fa.film_id = f.film_id 
- -- WHERE f.title = "Alone Trip";
- 
+ /*-- Using joins
+ SELECT a.first_name, a.last_name, f.title 
+ FROM actor AS a 
+ INNER JOIN film_actor AS fa ON a.actor_id = fa.actor_id 
+ INNER JOIN film AS f ON fa.film_id = f.film_id 
+ WHERE f.title = "Alone Trip";
+ */
  -- 7c
  SELECT c.first_name, c.last_name, c.email, co.country 
  FROM customer AS c
@@ -116,3 +116,25 @@ WHERE language_id IN
  JOIN city AS ci ON a.city_id = ci.city_id
  JOIN country AS co ON ci.country_id = co.country_id
  WHERE country = "Canada";
+ 
+ -- 7d
+ SELECT title
+ FROM film
+ WHERE film_id IN 
+ (
+  SELECT film_id
+  FROM film_category
+  WHERE category_id IN
+  (
+   SELECT category_id
+   FROM category
+   WHERE name = "Family"
+   )
+ );
+/*-- Using Join 
+SELECT f.title, c.name 
+FROM film AS f
+JOIN film_category AS fc ON f.film_id = fc.film_id
+JOIN category AS c ON fc.category_id = c.category_id
+WHERE c.name = "Family";
+*/
