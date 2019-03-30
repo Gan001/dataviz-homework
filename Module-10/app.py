@@ -8,8 +8,8 @@ import pandas as pd
 import datetime as dt
 from collections import defaultdict
 
-#create engine
-engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+#create engine connect args allows for use of one session engine for all functions(otherwise make new session in function)
+engine = create_engine("sqlite:///Resources/hawaii.sqlite", connect_args= {"check_same_thread":False})
 # reflect an existing database into a new model
 Base = automap_base()
 # reflect the tables
@@ -23,19 +23,17 @@ Station = Base.classes.station
 session = Session(engine)
 
 # Design a query to retrieve the last 12 months of precipitation data and plot the results
-date_results = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
-last_year = date_results[0]
+date_query = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+last_year = date_query[0]
 last_year_split = last_year.split("-")
 last_year_split[0] = str(int(last_year_split[0])-1)
 one_year_ago = "-".join(last_year_split)
 
 # Perform a query to retrieve the data and precipitation scores
 results = session.query(Measurement.date, Measurement.prcp).\
-          filter(Measurement.date >= one_year_ago).filter(Measurement.prcp != "None").all()
+        filter(Measurement.date >= one_year_ago).filter(Measurement.prcp != "None").all()
 
-# Save the query results as a Pandas DataFrame and set the index to the date column
-# df = pd.DataFrame(results, columns = ['date', 'precipitation'])
-# df.set_index('date', inplace=True, )
+# Save the query results as a Pandas DataFrame and create a dictionary
 prcp_df = pd.DataFrame(results).sort_values('date')
 prcp_dict = prcp_df.to_dict('records')
 
@@ -44,7 +42,6 @@ for i in range(len(prcp_dict)):
     prcp_default[prcp_dict[i]['date']].append(prcp_dict[i]['prcp'])
 
 adjust_prcp_dict = dict(prcp_default)
-
 # Sort the dataframe by date
 #sorted_df = df.sort_values('date')
 #List of stations
@@ -54,7 +51,7 @@ for station in stations:
     station_list.append(station[0])   
                            
 #list of temperature observations
-tobs = session.query(Measurement.station,Measurement.tobs).order_by(Measurement.station).filter(Measurement.date >= one_year_ago).all()
+tobs = session.query(Measurement.tobs).order_by(Measurement.station).filter(Measurement.date >= one_year_ago).all()
 
 #Setup Flask
 app = Flask(__name__)
@@ -62,11 +59,21 @@ app = Flask(__name__)
 #Flask routes
 @app.route("/")
 def welcome():
-    return "Home Page"
+    return (f"Welcome to the Climate App!<br/>"
+            f"Available Routes:<br/>"
+            f"/api/v1.0/precipitation<br/>"
+            f"/api/v1.0/stations<br/>"
+            f"/api/v1.0/tobs<br/>"
+            f"To search by date:<br/>"
+            f"/api/v1.0/start_date<br/>"
+            f"To search by date range:<br/>"
+            f"/api/v1.0/start_date/end_date")
 
 
 @app.route("/api/v1.0/precipitation")
 def precipitation():
+    
+    #return jsonified dictionary
     return jsonify(adjust_prcp_dict)
 
 @app.route("/api/v1.0/stations")
@@ -75,7 +82,20 @@ def station_lists():
 
 @app.route("/api/v1.0/tobs")
 def observations():
-    return jsonify(tobs)
+    return jsonify(list(np.ravel(tobs)))
+
+@app.route("/api/v1.0/<start>")
+def calc_start_temp(start):
+    calc = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start).all()
+    return jsonify(calc[0])
+
+@app.route("/api/v1.0/<start>/<end>")
+def calc_start_end_temp(start, end):
+    calc = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).\
+        filter(Measurement.date >= start).filter(Measurement.date <= end).all()
+    return jsonify(calc[0])
+
 
 if __name__ == "__main__":
     app.run(debug=True)
