@@ -9,12 +9,37 @@
 .navbar-brand h2 {
     color: white;
 }
+/*html {
+    height: 100%;
+}
+body {
+   height: 80%;
+}*/
 body, #visual {
     background-color: #dee2e6;
+}
+.container {
+    min-height: 100%;
+    overflow: hidden;
 }
 .container, #inner_visual {
     background-color: white;
 }
+footer {
+    background-color: gray;
+    
+    border-top: 5px solid teal;
+    text-align: center;
+    color: white;
+    
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+    
+}
+
+
 
 h3 {
     padding: 0px;
@@ -31,8 +56,8 @@ h2 {
 img {
     padding: 0px;
     margin: 0 auto;
-    height: 90%;
-    width: 90%;
+    height: 80%;
+    width: 80%;
     box-sizing: inherit;
     
 }
@@ -42,6 +67,10 @@ img {
     
 
 }
+/*#container-landing {
+    margin-bottom: 50%;
+    height: 50%;
+}*/
 * {
     border: 1px solid red !important;
 }
