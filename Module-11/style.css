@@ -3,9 +3,17 @@
     
 }
 
+h2 {
+    padding: 0px;
+    margin: 0;
+    text-align: center;
+}
 img {
-    height: 100%;
-    width: 100%;
+    padding: 0px;
+    margin: 0 auto;
+    height: 90%;
+    width: 90%;
+    
 }
 * {
     border: 1px solid red !important;
