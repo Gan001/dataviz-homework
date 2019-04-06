@@ -2,6 +2,19 @@
     box-sizing: border-box;
     
 }*/
+.navbar-brand {
+    background-color: teal;
+    
+}
+.navbar-brand h2 {
+    color: white;
+}
+body, #visual {
+    background-color: #dee2e6;
+}
+.container, #inner_visual {
+    background-color: white;
+}
 
 h3 {
     padding: 0px;
@@ -22,6 +35,12 @@ img {
     width: 90%;
     box-sizing: inherit;
     
+}
+#landing-img {
+    height: 50%;
+    width: 50%;
+    
+
 }
 * {
     border: 1px solid red !important;
