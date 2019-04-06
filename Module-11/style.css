@@ -1,18 +1,26 @@
-.col {
+/*.col {
     box-sizing: border-box;
     
-}
+}*/
 
-h2 {
+h3 {
     padding: 0px;
     margin: 0;
     text-align: center;
+    color: teal;
+}
+h1 {
+    color: teal;
+}
+h2 {
+    color: teal;
 }
 img {
     padding: 0px;
     margin: 0 auto;
     height: 90%;
     width: 90%;
+    box-sizing: inherit;
     
 }
 * {
