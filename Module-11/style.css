@@ -32,6 +32,10 @@ body, #visual {
     background-color: #dee2e6;
     
   }
+  .nav-item:hover {
+    background-color: #dee2e6;
+    
+  }
 /*.dropdown-menu {
     background-color: white;
 }*/
@@ -111,3 +115,4 @@ img {
         padding-left: 2px;
     }
 }
+
