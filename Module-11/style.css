@@ -9,6 +9,13 @@
 .navbar-brand h2 {
     color: white;
 }
+
+/*.navbar {
+    background-color: teal !important;
+}*/
+.navbar-toggler {
+    background-color: teal;
+}
 /*html {
     height: 100%;
 }
@@ -76,4 +83,10 @@ img {
 }*/
 * {
     border: 1px solid red !important;
+}
+/*To change color when navbar collapses*/
+@media only screen and (max-width: 992px) {
+    .navbar {
+      background-color: teal !important;
+    }
 }
