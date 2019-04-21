@@ -19,17 +19,17 @@
     </div>
     <div class= "col-md-6">
         <h2>Latest Mars News</h2>
-        <h3>{{ vacation.top_title }}</h3>
-        <p>{{ vacation.top_paragraph }}</p>
+        <h3>{{ mars.top_title }}</h3>
+        <p>{{ mars.top_paragraph }}</p>
         <h2>Featured Mars Image</h2>
-        <img src="{{ vacation.Featured_image }}" alt="mars_featured">
+        <img src="{{ mars.Featured_image }}" alt="mars_featured">
 
     </div>
     
     <div class= "col-md-2" >
         <h3>Current Weather on Mars</h3>
-        <p>{{ vacation.Weather }}</p>
-        {{vacation.mars_facts_table|safe}}
+        <p>{{ mars.Weather }}</p>
+        {{mars.mars_facts_table|safe}}
     </div>
   </div>
   <div class="container" >
@@ -41,22 +41,13 @@
             </div>
         </div>
         <div class="row">
-            {% for hemi in vacation.Hemisphere_image %}
-            <div class="col-lg-4"><h3>{{hemi.title}}</h3><img class="img-fluid mx-auto d-block" src="{{ hemi.img_url }}"></div>
+            {% for hemi in mars.Hemisphere_image %}
+            <div class="col-lg-4"><img class="img-fluid mx-auto d-block" src="{{ hemi.img_url }}"><p><strong>{{hemi.title}} Enhanced</strong></p></div>
             {% endfor %}
-            <!-- <div class="col-md-6"><h3>{{vacation.Hemisphere_image[0]["title"]}}</h3><img class="img-fluid mx-auto d-block" src="{{ vacation.Hemisphere_image[0]['img_url'] }}"></div>
-            <div class="col-md-6"><h3>{{vacation.Hemisphere_image[1]["title"]}}</h3><img class="img-fluid mx-auto d-block" src="{{ vacation.Hemisphere_image[1]['img_url'] }}"></div> -->
-            <!-- <div class="col-md-6"><h3>vs. Humidity</h3><a href="./humid.html"><img class="img-fluid mx-auto d-block" src="./Resources/assets/images/Fig2.png" alt="vs Humidity"></a></div>
-            <div class="w-100"></div>
-            <div class="col-md-6"><h3>vs. Cloudiness</h3><a href="./cloud.html"><img class="img-fluid mx-auto d-block" src="./Resources/assets/images/Fig3.png" alt="vs Cloudiness"></a></div>
-            <div class="col-md-6"><h3>vs. Wind Speed</h3><a href="./wind.html"><img class="img-fluid mx-auto d-block" src="./Resources/assets/images/Fig4.png" alt="vs Wind Speed"></a></div> -->
+            
         </div>
     </div>
-  <!-- <div class= "container-fluid col-md-6" >
-        <h3>Current Weather on Mars</h3>
-        <p>{{ vacation.Weather }}</p>
-  </div> -->
-  <!--/div-->
+  
 </body>
 
 </html>
