@@ -14,39 +14,48 @@
   <div class="container-fluid">
     <div class="jumbotron text-center">
       <h1>Mission to Mars</h1>
-      <!--p>Beach. Rainforest. Volcano. Tree House. Sloths.</p-->
+      
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
-    <div class= "col-md-6">
-        <h2>Latest Mars News</h2>
-        <h3>{{ mars.top_title }}</h3>
+    
+        <h2><strong>Latest Mars News</strong></h2>
+        <h3><strong>{{ mars.top_title }}</strong></h3>
         <p>{{ mars.top_paragraph }}</p>
-        <h2>Featured Mars Image</h2>
+  </div>
+  <div class="container-fluid">
+  <div class= "col-md-6">
+        
+        <h2><strong>Featured Mars Image</strong></h2>
         <img src="{{ mars.Featured_image }}" alt="mars_featured">
 
-    </div>
+  </div>
     
     <div class= "col-md-2" >
-        <h3>Current Weather on Mars</h3>
+        
+        <h3><strong>Current Weather on Mars</strong></h3>
         <p>{{ mars.Weather }}</p>
+        
+        <!--to display html table use |safe-->
         {{mars.mars_facts_table|safe}}
     </div>
-  </div>
+ </div>
   <div class="container" >
         <div class="row">
             <div class="col">
-                <h1>Mars Hemispheres</h1>
+                <h1 class="text-center">Mars Hemispheres</h1>
                 <hr>
                
             </div>
         </div>
+        
         <div class="row">
             {% for hemi in mars.Hemisphere_image %}
-            <div class="col-lg-4"><img class="img-fluid mx-auto d-block" src="{{ hemi.img_url }}"><p><strong>{{hemi.title}} Enhanced</strong></p></div>
+            <div class="col-lg-5"><img class="img-fluid mx-auto d-block" src="{{ hemi.img_url }}"><p><strong>{{hemi.title}} Enhanced</strong></p></div>
             {% endfor %}
             
         </div>
-    </div>
+        
+  </div>
   
 </body>
 

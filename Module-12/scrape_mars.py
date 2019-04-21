@@ -16,7 +16,7 @@ def visit_site(html):
 
 
 def scrape():
-    mars_data = {}
+    mars_data = {}#dictionary to be loaded to mongo
     browser = init_browser()
     url = "https://mars.nasa.gov/news/?page=0&per_page=40&order=publish_date+desc%2Ccreated_at+desc&search=&category=19%2C165%2C184%2C204&blank_scope=Latest"
     browser.visit(url)
@@ -31,6 +31,7 @@ def scrape():
     first_news_p = news_p.text
     # print(f"Title: {first_news_title}")
     # print(f"P: {first_news_p}")
+    #add to dictionary 
     mars_data["top_title"] = first_news_title
     mars_data["top_paragraph"] = first_news_p
 
@@ -54,9 +55,11 @@ def scrape():
     image = feature_image['src']
     featured_image_url = f"https://www.jpl.nasa.gov{image}"
     #print(featured_image_url)
-    mars_data["Featured_image"] = featured_image_url
-    #browser.quit()
 
+    #add to dictionary
+    mars_data["Featured_image"] = featured_image_url
+    
+    #browser.quit()
     url = "https://twitter.com/marswxreport?lang=en"
     browser.visit(url)
     html = browser.html
@@ -65,13 +68,15 @@ def scrape():
     tweet = soup.find_all("p", class_="tweet-text")
     mars_weather = tweet[0].text
     #print(mars_weather)
+
     #Remove twitter pic
     new_mars_weather = mars_weather.split("pic")
     #print(new_mars_weather[0])
-    mars_data["Weather"] = new_mars_weather[0]
-    #browser.quit()
 
+    #add to dictionary
+    mars_data["Weather"] = new_mars_weather[0]
     
+    #browser.quit()
     url = "https://space-facts.com/mars/"
     browser.visit(url)
     html = browser.html
@@ -96,11 +101,11 @@ def scrape():
     #Remove \n from table
     clean_facts_html_table= facts_html_table.replace('\n', '')
     #print(clean_facts_html_table)
+
+    #add to dictionary
     mars_data["mars_facts_table"] = clean_facts_html_table
 
     #browser.quit()
-
-    
     url = "https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars"
     browser.visit(url)
     #html = browser.html
