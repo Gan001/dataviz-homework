@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Costa Rica Weather</title>
+  <title>Mission to Mars</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
@@ -16,12 +16,24 @@
       <!--p>Beach. Rainforest. Volcano. Tree House. Sloths.</p-->
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
+    <div class= "col-md-6">
+        <h2>Latest Mars News</h2>
+        <h3>{{ vacation.top_title }}</h3>
+        <p>{{ vacation.top_paragraph }}</p>
+        <img src="{{ vacation.Featured_image }}" alt="mars_featured">
+
+    </div>
     
-    <h2>Latest Mars News</h2>
-    <h3>{{ vacation.top_title }}</h3>
-    <p>{{ vacation.top_paragraph }}</p>
-    <img src="{{ vacation.Featured_image }}" alt="Sloth">
+    <div class= "container-fluid col-md-6" >
+        <h3>Current Weather on Mars</h3>
+        <p>{{ vacation.Weather }}</p>
+        {{vacation.mars_facts_table|safe}}
+    </div>
   </div>
+  <!-- <div class= "container-fluid col-md-6" >
+        <h3>Current Weather on Mars</h3>
+        <p>{{ vacation.Weather }}</p>
+  </div> -->
   <!--/div-->
 </body>
 
