@@ -128,5 +128,5 @@ def scrape():
     #print(mars_data)
     return mars_data
 
-if __name__ == "__main__":
-    scrape()
+# if __name__ == "__main__":
+#     scrape()
