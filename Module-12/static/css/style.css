@@ -1,11 +1,11 @@
-/* h1 {
+ /*h1 {
     color: blue;
-} */
-
-/* img, .col-md-5 {
+} 
+*/
+ img, .col-md-6 {
     padding: 0px;
     margin: 0 auto;
     height: 80%;
     width: 80%;
     box-sizing: inherit;
-} */
+} 
