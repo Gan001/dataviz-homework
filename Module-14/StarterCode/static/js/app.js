@@ -47,6 +47,8 @@ submit.on("click",function(){
 
   var filteredData = tableData.filter(tableData => tableData.datetime === inputValue);
   console.log(filteredData);
+  //clear previous table
+  d3.select('#ufo-table tbody').html(' ')
   buildTable(filteredData);
 });
 
