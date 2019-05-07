@@ -24,7 +24,7 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Initial Params
-var chosenXAxis = "healthcareLow";//heathcareLow
+var chosenXAxis = "poverty";//heathcareLow
 
 // function used for updating x-scale var upon click on axis label
 function xScale(healthData, chosenXAxis) {
@@ -64,8 +64,8 @@ function renderCircles(circlesGroup, newXScale, chosenXaxis) {
 // function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, circlesGroup) {
 
-  if (chosenXAxis === "healthcareLow") {
-    var label = "Healthcare:";
+  if (chosenXAxis === "poverty") {
+    var label = "poverty:";
   }
   else {
     var label = "Age:";
@@ -130,7 +130,7 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d.poverty))
+    .attr("cy", d => yLinearScale(d.healthcareLow))
     .attr("r", 20)
     .attr("fill", "pink")
     .attr("opacity", ".5");
@@ -142,9 +142,9 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
   var hairLengthLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 20)
-    .attr("value", "healthcareLow") // value to grab for event listener
+    .attr("value", "poverty") // value to grab for event listener
     .classed("active", true)
-    .text("Lacks Healthcare");
+    .text("In Poverty (%)");
 
   var albumsLabel = labelsGroup.append("text")
     .attr("x", 0)
@@ -160,7 +160,7 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("In Poverty (%)");
+    .text("Lacks Healthcare (%)");
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
