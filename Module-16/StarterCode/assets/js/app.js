@@ -24,7 +24,7 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Initial Params
-var chosenXAxis = "healthcare";
+var chosenXAxis = "healthcareLow";//heathcareLow
 
 // function used for updating x-scale var upon click on axis label
 function xScale(healthData, chosenXAxis) {
@@ -64,18 +64,18 @@ function renderCircles(circlesGroup, newXScale, chosenXaxis) {
 // function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, circlesGroup) {
 
-  if (chosenXAxis === "healthcare") {
+  if (chosenXAxis === "healthcareLow") {
     var label = "Healthcare:";
   }
   else {
-    var label = "# of Albums:";
+    var label = "Age:";
   }
 
   var toolTip = d3.tip()
     .attr("class", "tooltip")
     .offset([80, -60])
     .html(function(d) {
-      return (`${d.rockband}<br>${label} ${d[chosenXAxis]}`);
+      return (`${d.abbr}<br>${label} ${d[chosenXAxis]}`);
     });
 
   circlesGroup.call(toolTip);
@@ -97,7 +97,7 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
 
   // parse data
   healthData.forEach(function(data) {
-    data.healthcare = +data.healthcare;//x-axis hair_length
+    data.healthcareLow = +data.healthcareLow;//x-axis hair_length
     data.poverty = +data.poverty;//y-axis num_hits
     data.age = +data.age;//x-axis num_albums
   });
@@ -142,16 +142,16 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
   var hairLengthLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 20)
-    .attr("value", "healthcare") // value to grab for event listener
+    .attr("value", "healthcareLow") // value to grab for event listener
     .classed("active", true)
-    .text("Hair Metal Ban Hair Length (inches)");
+    .text("Lacks Healthcare");
 
   var albumsLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
     .attr("value", "age") // value to grab for event listener
     .classed("inactive", true)
-    .text("# of Albums Released");
+    .text("Age");
 
   // append y axis
   chartGroup.append("text")
@@ -160,7 +160,7 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("Number of Billboard 500 Hits");
+    .text("In Poverty (%)");
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
