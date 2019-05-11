@@ -102,6 +102,15 @@ function renderCirclesY(circlesGroup, newYScale,chosenYAxis) {
   return circlesGroup;
 }
 
+function updateText(text, newScale,chosenAxis, axis, num=0) {
+
+  text.transition()
+    .duration(1000)
+    .attr(axis, d => newScale(d[chosenAxis])+ num);
+
+  return text;
+}
+
 // function used for updating circles group with new tooltip
 function updateToolTip(chosenXAxis, chosenYAxis, circlesGroup) {
 
@@ -189,6 +198,16 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
     .attr("r", 20)
     .attr("fill", "cornflowerblue")
     .attr("opacity", ".5");
+
+  var texts = chartGroup.selectAll('.stateText')
+    .data(healthData)
+    .enter()
+    .append('text')
+    .classed('stateText', true)
+    .text(d => d.abbr)
+    .attr("x", d => xLinearScale(d[chosenXAxis]))
+    .attr("y", d => yLinearScale(d[chosenYAxis])+ 5);
+    
     
     var yAxis = chartGroup.append("g")
     .classed("y-axis", true)
@@ -197,9 +216,9 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
   var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-    //create y labels
+  //create group for y-axis labels
   var labelsYGroup = chartGroup.append("g")
-  .attr("transform", "rotate(-90)");
+    .attr("transform", "rotate(-90)");
 
   var povertyLabel = labelsGroup.append("text")
     .attr("x", 0)
@@ -224,7 +243,7 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
   //   .classed("axis-text", true)
   //   .text("Lacks Healthcare (%)");
 
-    var healthcareLowLabel = labelsYGroup.append("text")
+  var healthcareLowLabel = labelsYGroup.append("text")
     .attr("y", 0 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
@@ -232,7 +251,7 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
     .classed("active", true)
     .text("Lacks Healthcare (%)");
 
-    var smokesLabel = labelsYGroup.append("text")
+  var smokesLabel = labelsYGroup.append("text")
     .attr("y", 0 - margin.left + 15)
     .attr("x", 0 - (height/2))
     .attr("dy", "1em")
@@ -265,7 +284,11 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
 
         // updates circles with new x values
         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
-
+        
+      // texts.transition()
+      // .duration(1000)
+      // .attr("x", d => xLinearScale(d[chosenXAxis]));
+      texts = updateText(texts, xLinearScale,chosenXAxis, 'x');
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis,chosenYAxis, circlesGroup);
 
@@ -310,7 +333,11 @@ d3.csv("assets/data/data.csv", function(err, healthData) {
 
         // updates circles with new y values
         circlesGroup = renderCirclesY(circlesGroup, yLinearScale, chosenYAxis);
-
+        
+        // texts.transition()
+        // .duration(1000)
+        // .attr("y", d => yLinearScale(d[chosenYAxis])+5);
+        texts = updateText(texts, yLinearScale,chosenYAxis, 'y', 5);
         // updates tooltips with new info
         circlesGroup = updateToolTip(chosenXAxis, chosenYAxis, circlesGroup);
         
