@@ -80,9 +80,9 @@ function markerColor(magnitude){
   }
 }
 function createFeatures(data){
-  data.forEach(d =>{
-    console.log(d.properties.mag);
-  });
+  // data.forEach(d =>{
+  //   console.log(d.properties.mag);
+  // });
 //var magnitude = data.properties.mag;
 // var geojsonMarkerOptions = {
 //   radius: 8,
@@ -102,14 +102,18 @@ function createFeatures(data){
 //     fillOpacity: 0.8
 // };
 // }
+function onEachFeature(feature, layer) {
+  layer.bindPopup("<h3>" + feature.properties.place +
+    "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+}
 
-
-var earthquakes;
+//var earthquakes;
     // for (var i = 0; i <=10;i++){
     //   console.log(data[i].properties.mag);
       
     // }
-    earthquakes = L.geoJSON(data,{
+   var earthquakes = L.geoJSON(data,{
+     onEachFeature: onEachFeature,
       pointToLayer: function(features, latlng){return L.circleMarker(latlng,  {
         radius: markerSize(features.properties.mag),
         fillColor: markerColor(features.properties.mag),
@@ -129,14 +133,14 @@ function makeLegend(map){
 legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-    grades = [1, 2, 3, 4, 5],
+    grades = [0,1, 2, 3, 4, 5],
     labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
     for (var i = 0; i < grades.length; i++) {
         div.innerHTML +=
             '<i style="background:' + markerColor(grades[i]) + '"></i> ' +
-            grades[i] + (grades[i + 1] ?   '<br>' : '+');
+            grades[i] + (grades[i + 1] ?'&ndash;' + grades[i + 1] + '<br>' : '+');
 }
 
 return div;
