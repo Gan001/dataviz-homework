@@ -103,8 +103,7 @@ function createMap(earthquakes) {
   
   //create overlay layer
   var overlayMaps = {
-    Earthquakes: earthquakes
-    
+    Earthquakes: earthquakes,
   };
 
   //create map
@@ -130,4 +129,5 @@ d3.json(earthQuakeSevenDays, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
   createFeatures(data.features);
 });
+
 
