@@ -6,15 +6,15 @@ function markerSize(magnitude){
 //makes color of marker relative to magnitude
 function markerColor(magnitude){
   if(magnitude >= 5){
-    return '#A10101';
+    return '#A30000';
   }else if(magnitude >= 4){
-    return '#A53B00';
+    return '#D61B1B';
   }else if(magnitude >= 3){
-    return '#F28846';
+    return '#FFA54E';
   }else if (magnitude >=2){
-    return '#FFEDAB';
+    return '#FFD881';
   }else if (magnitude >= 1){
-    return '#CCFF5F';
+    return '#FFFF80';
   }else{
     return '#59FF33';
   }
@@ -111,8 +111,7 @@ function createMap(earthquakes) {
   var myMap = L.map("map", {
     center: [37.09, -95.71],
     zoom: 5,
-    layers: [light,earthquakes]
-    
+    layers: [light,earthquakes] 
   });
 
   //create layer control and add to map
