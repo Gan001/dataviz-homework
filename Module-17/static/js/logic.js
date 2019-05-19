@@ -6,15 +6,15 @@ function markerSize(magnitude){
 //makes color of marker relative to magnitude
 function markerColor(magnitude){
   if(magnitude >= 5){
-    return '#AA0242';
+    return '#A10101';
   }else if(magnitude >= 4){
-    return '#C70039';
+    return '#A53B00';
   }else if(magnitude >= 3){
-    return '#FF5733';
+    return '#F28846';
   }else if (magnitude >=2){
-    return '#FFC300';
+    return '#FFEDAB';
   }else if (magnitude >= 1){
-    return '#DAF7A6';
+    return '#CCFF5F';
   }else{
     return '#59FF33';
   }
@@ -45,7 +45,6 @@ function createFeatures(data){
       });
   //send earthquake layers to create map 
   createMap(earthquakes);
-
 }
 
 //make legend for map
@@ -55,7 +54,7 @@ function makeLegend(map) {
   legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend'),
-    grades = [0,1, 2, 3, 4, 5],
+    grades = [0, 1, 2, 3, 4, 5],
     labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
@@ -81,14 +80,31 @@ function createMap(earthquakes) {
     accessToken: API_KEY
   });
 
+  var dark = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox.dark",
+    accessToken: API_KEY
+  });
+
+  var streets = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox.streets",
+    accessToken: API_KEY
+  });
+
   //create base map
   var baseMaps = {
-    'Light': light
+    'Light Map': light,
+    'Dark Map': dark,
+    'Street Map': streets
   };
-
+  
   //create overlay layer
   var overlayMaps = {
     Earthquakes: earthquakes
+    
   };
 
   //create map
@@ -115,5 +131,4 @@ d3.json(earthQuakeSevenDays, function(data) {
   // Once we get a response, send the data.features object to the createFeatures function
   createFeatures(data.features);
 });
-
 
